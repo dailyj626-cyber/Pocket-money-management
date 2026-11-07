@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7fb">
+  <title>차곡차곡 — 용돈 관리</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    :root{--ink:#20243a;--muted:#9297aa;--line:#eceef4;--paper:#fff;--bg:#f6f7fb;--purple:#7065e8;--purple-dark:#5d51d5;--purple-light:#f0efff;--green:#32b890;--green-light:#e9f8f2;--red:#f17878;--red-light:#fff0f0;--yellow:#ffcf67;--shadow:0 12px 34px rgba(49,53,86,.055)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans','Noto Sans KR',sans-serif;font-size:14px;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1440px;min-height:100vh;margin:auto;display:grid;grid-template-columns:238px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:30px 18px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:11px;padding:0 12px;margin:0 0 46px}.brand-mark{width:38px;height:38px;background:var(--purple);border-radius:13px;display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:0 6px 14px #7065e844}.brand-name{font-size:18px;font-weight:800;letter-spacing:-.7px}.brand-name small{display:block;color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.2px;margin-top:1px}.nav-label{padding:0 12px;color:#b1b4c2;font-size:10px;font-weight:800;letter-spacing:1.2px;margin:0 0 10px}.nav-link{height:45px;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 13px;margin:4px 0;color:#888da1;font-weight:600}.nav-link.active{background:var(--purple-light);color:var(--purple)}.nav-ico{font-size:17px;width:20px;text-align:center}.sidebar-spacer{flex:1}.tip-card{border-radius:16px;background:#fff8e8;padding:17px 15px;color:#64553b;margin:0 2px 14px}.tip-emoji{font-size:22px;margin-bottom:10px}.tip-card strong{font-size:12px;display:block;margin-bottom:6px}.tip-card p{font-size:11px;line-height:1.6;color:#928264;margin:0}.profile{border-top:1px solid var(--line);padding:18px 4px 0;display:flex;align-items:center;gap:10px}.avatar{height:35px;width:35px;border-radius:50%;background:#ffe6ce;display:grid;place-items:center;font-size:18px}.profile strong{font-size:12px}.profile small{display:block;font-size:10px;color:var(--muted);margin-top:3px}.main{padding:32px 42px 44px;max-width:1300px;width:100%;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:29px}.greeting h1{font-size:23px;letter-spacing:-.9px;margin:0 0 6px;font-weight:800}.greeting p{margin:0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:10px;align-items:center}.today-pill{border:1px solid var(--line);background:white;border-radius:11px;padding:10px 13px;color:#777d91;font-size:11px;font-weight:600}.today-pill span{margin-right:6px}.icon-button{height:39px;width:39px;border-radius:12px;border:1px solid var(--line);background:#fff;color:#8d92a5;font-size:16px}.summary{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:16px;margin-bottom:25px}.balance-card,.stat-card{border-radius:19px;padding:22px 24px;min-height:148px;position:relative;overflow:hidden}.balance-card{color:white;background:linear-gradient(120deg,#776ce9,#6459dc);box-shadow:0 12px 24px #7065e82b}.balance-card:after{content:'';position:absolute;width:180px;height:180px;border:1px solid #ffffff25;border-radius:50%;right:-34px;top:-76px;box-shadow:0 0 0 20px #ffffff0a,0 0 0 42px #ffffff08}.card-label{font-size:11px;font-weight:600;opacity:.85;display:flex;align-items:center;gap:7px}.balance-card .amount{font-size:34px;letter-spacing:-1.5px;font-weight:800;margin:14px 0 10px}.balance-foot{font-size:10px;opacity:.78}.balance-spark{position:absolute;right:24px;bottom:18px;font-size:27px;z-index:1}.stat-card{background:white;box-shadow:var(--shadow);border:1px solid #f1f1f6}.stat-head{display:flex;justify-content:space-between;align-items:center;color:#858a9d;font-size:11px;font-weight:600}.stat-icon{height:30px;width:30px;border-radius:10px;display:grid;place-items:center;font-size:15px}.stat-icon.in{background:var(--green-light);color:var(--green)}.stat-icon.out{background:var(--red-light);color:var(--red)}.stat-amount{font-size:24px;font-weight:800;letter-spacing:-.9px;margin:14px 0 7px}.stat-note{font-size:10px;color:#a4a8b8}.content-grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(290px,.88fr);gap:18px;align-items:start}.panel{background:white;border:1px solid #f0f1f6;border-radius:18px;box-shadow:var(--shadow)}.transactions-panel{padding:23px 22px 12px;min-height:465px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.panel-title{font-size:15px;font-weight:800;letter-spacing:-.35px}.panel-subtitle{font-size:10px;color:var(--muted);margin-top:4px}.filter-tabs{display:flex;background:#f5f6fa;border-radius:9px;padding:3px;gap:2px}.filter-tab{border:0;border-radius:7px;background:none;color:#9297a9;font-size:10px;font-weight:700;padding:7px 10px}.filter-tab.active{background:white;color:var(--purple);box-shadow:0 1px 4px #20243a12}.list-head{display:grid;grid-template-columns:1.5fr .9fr .8fr;gap:10px;padding:11px 8px;color:#a3a7b5;font-size:10px;border-bottom:1px solid var(--line)}.list-head span:last-child{text-align:right}.transaction-list{min-height:250px}.transaction{display:grid;grid-template-columns:1.5fr .9fr .8fr;gap:10px;align-items:center;padding:13px 8px;border-bottom:1px solid #f3f4f7;animation:arrive .25s ease}@keyframes arrive{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}.transaction-main{display:flex;align-items:center;gap:11px;min-width:0}.tx-icon{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:#f5f5ff;display:grid;place-items:center;font-size:17px}.tx-title{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx-detail{font-size:10px;color:#a1a5b4;margin-top:4px}.tx-category{color:#858a9d;font-size:10px}.tx-amount{text-align:right;font-size:12px;font-weight:800;white-space:nowrap}.tx-amount.income{color:var(--green)}.tx-amount.expense{color:#51566d}.tx-amount small{display:block;color:#b1b4c1;font-size:9px;font-weight:500;margin-top:3px}.delete-btn{border:0;background:none;color:#c4c7d1;font-size:15px;margin-left:6px;padding:4px}.delete-btn:hover{color:var(--red)}.tx-amount-wrap{display:flex;justify-content:flex-end;align-items:center}.empty-state{min-height:245px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#9da2b1}.empty-art{width:68px;height:68px;background:#f7f6ff;border-radius:23px;display:grid;place-items:center;font-size:30px;margin-bottom:13px}.empty-state strong{color:#62677b;font-size:12px;margin-bottom:5px}.empty-state span{font-size:10px}.right-column{display:grid;gap:18px}.form-panel{padding:21px 21px 20px}.form-panel .panel-head{margin-bottom:17px}.type-switch{display:grid;grid-template-columns:1fr 1fr;background:#f5f6fa;padding:4px;border-radius:11px;margin-bottom:17px}.type-btn{height:34px;border:0;border-radius:8px;background:transparent;color:#9599a9;font-size:11px;font-weight:700}.type-btn.active.income{background:white;color:var(--green);box-shadow:0 1px 5px #20243a12}.type-btn.active.expense{background:white;color:var(--red);box-shadow:0 1px 5px #20243a12}.field{margin-bottom:13px}.field label{display:block;color:#858a9d;font-size:10px;font-weight:700;margin:0 0 7px}.input-wrap{position:relative}.input-wrap .currency{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9da1b0;font-size:12px;font-weight:700}.field input,.field select{height:41px;width:100%;border:1px solid #e9eaf0;border-radius:10px;background:#fff;padding:0 12px;color:var(--ink);outline:none;font-size:11px}.field input:focus,.field select:focus{border-color:#a9a2f3;box-shadow:0 0 0 3px #7065e818}.field input.amount-input{padding-left:29px;font-size:14px;font-weight:700}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.submit-btn{width:100%;height:43px;background:var(--purple);color:#fff;border:0;border-radius:11px;font-size:12px;font-weight:800;margin-top:2px;box-shadow:0 5px 12px #7065e82d;transition:.15s}.submit-btn:hover{background:var(--purple-dark);transform:translateY(-1px)}.overview-panel{padding:20px 21px}.overview-top{display:flex;justify-content:space-between;align-items:flex-start}.month-tag{font-size:9px;font-weight:700;color:var(--purple);background:var(--purple-light);border-radius:7px;padding:6px 8px}.overview-total{font-size:19px;font-weight:800;margin:16px 0 2px}.overview-caption{font-size:10px;color:#a1a5b4;margin-bottom:16px}.category-row{margin:12px 0}.category-label{display:flex;justify-content:space-between;font-size:10px;color:#777d91;margin-bottom:7px}.category-label strong{font-weight:700;color:#555a70}.bar-track{height:6px;background:#f1f2f7;border-radius:99px;overflow:hidden}.bar-fill{height:100%;border-radius:99px;background:var(--purple);transition:width .3s}.bar-fill:nth-child(1){background:var(--purple)}.category-empty{color:#a4a8b8;font-size:10px;padding:2px 0 6px}.mobile-nav{display:none}
+    a.nav-link{text-decoration:none}.record-tools{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:9px;margin:0 0 8px}.search-wrap{height:38px;border:1px solid #e9eaf0;border-radius:10px;display:flex;align-items:center;gap:7px;padding:0 10px;color:#a1a5b4}.search-wrap input{min-width:0;width:100%;border:0;outline:0;background:transparent;font-size:11px;color:var(--ink)}.record-tools select{height:38px;border:1px solid #e9eaf0;border-radius:10px;background:#fff;padding:0 9px;color:#777d91;font-size:10px}.panel-badge{font-size:9px;font-weight:700;color:var(--purple);background:var(--purple-light);border-radius:7px;padding:6px 8px;white-space:nowrap}.manage-panel{padding:20px 21px}.manage-panel .panel-head{margin-bottom:13px}.compact-form{padding:13px;background:#fafaff;border:1px solid #f0efff;border-radius:13px}.compact-form .field{margin:0}.compact-form .form-row{margin-bottom:10px}.compact-form>.field{margin-bottom:10px}.compact-form .field label{font-size:9px}.compact-form .field input,.compact-form .field select{height:37px}.compact-form .field input.amount-input{font-size:12px}.secondary-btn{width:100%;height:37px;border:0;border-radius:9px;background:var(--purple-light);color:var(--purple);font-size:10px;font-weight:800}.secondary-btn:hover{background:#e6e3ff}.secondary-btn span{margin-left:4px}.manage-list{display:grid;gap:10px;margin-top:13px}.manage-empty{padding:12px 4px 2px;text-align:center;color:#a4a8b8;font-size:10px}.budget-item,.goal-item{border:1px solid #f0f1f6;border-radius:12px;padding:12px}.manage-item-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.manage-item-title{font-size:11px;font-weight:800}.manage-item-meta{font-size:9px;color:#999eaf;margin-top:4px}.manage-value{font-size:10px;font-weight:800;white-space:nowrap}.manage-track{height:6px;background:#f0f1f6;border-radius:99px;overflow:hidden;margin-top:10px}.manage-fill{height:100%;border-radius:99px;background:var(--purple);transition:width .25s}.manage-fill.over{background:var(--red)}.budget-foot,.goal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:#999eaf;font-size:9px}.budget-foot strong,.goal-foot strong{color:#6f7488}.goal-actions{display:flex;gap:5px}.goal-add{height:25px;padding:0 8px;border:1px solid #e9e7ff;border-radius:7px;background:#fafaff;color:var(--purple);font-size:9px;font-weight:700}.goal-delete{height:25px;width:25px;border:0;border-radius:7px;background:#fff3f3;color:#d88787;font-size:13px}.goal-complete{color:var(--green);font-size:9px;font-weight:800}
+    .notice-toast{display:none;position:fixed;right:24px;top:22px;z-index:30;max-width:min(360px,calc(100vw - 32px));padding:13px 16px;border-radius:12px;background:#292d45;color:white;box-shadow:0 10px 30px #20243a30;font-size:12px;font-weight:700}.notice-toast.show{display:block;animation:arrive .2s ease}.icon-button.has-alert{color:var(--red);border-color:#ffdada;background:var(--red-light)}.budget-alert{padding:11px 12px;margin:0 0 12px;border-radius:10px;background:var(--red-light);color:#bf5555;font-size:10px;font-weight:700;line-height:1.55}.budget-alert[hidden]{display:none}.total-budget-form{display:grid;grid-template-columns:minmax(0,1fr) 120px;align-items:end;gap:9px;padding:13px;background:#f8f8ff;border:1px solid #eeeeff;border-radius:13px;margin-bottom:12px}.total-budget-form .field{margin:0}.total-budget-form .field label{font-size:9px}.total-budget-form .field input{height:37px}.total-budget-form .field input.amount-input{font-size:12px}.total-budget-form .secondary-btn{height:37px}.total-budget-status{margin:-3px 1px 14px}.total-budget-status:empty{display:none}.total-budget-status .manage-track{margin-top:0}.total-budget-copy{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;color:#8d92a5;font-size:9px}.total-budget-copy strong{color:#555a70}.stats-panel{padding:20px 21px}.stats-panel .panel-head{margin-bottom:14px}.stats-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stats-metrics>div{min-width:0;padding:10px 9px;background:#fafaff;border-radius:10px}.stats-metrics span{display:block;color:#969bad;font-size:9px;margin-bottom:6px}.stats-metrics strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#41465d;font-size:11px}.chart-legend{display:flex;justify-content:space-between;align-items:center;margin:16px 0 9px;color:#a1a5b4;font-size:9px}.chart-legend span:first-child{display:flex;align-items:center;gap:6px}.chart-legend i{display:inline-block;width:8px;height:8px;border-radius:3px;background:var(--purple)}.spend-chart{height:122px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:end;border-bottom:1px solid var(--line);padding:0 3px}.chart-column{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;min-width:0}.chart-bar-wrap{width:100%;height:92px;display:flex;align-items:flex-end;justify-content:center}.chart-bar{width:min(24px,70%);min-height:3px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#958cf2,#7065e8);transition:height .25s}.chart-month{font-size:9px;color:#9297aa;padding-bottom:5px}.chart-amount{font-size:8px;color:#858a9d;white-space:nowrap}.content-grid>.transactions-panel{grid-column:1;grid-row:1}.right-column{display:contents}.form-panel{grid-column:2;grid-row:1}.overview-panel{grid-column:2;grid-row:2}.stats-panel{grid-column:1;grid-row:2}#budget{grid-column:1;grid-row:3}#savings{grid-column:2;grid-row:3}
+    @media(max-width:1050px){.shell{grid-template-columns:205px 1fr}.sidebar{padding:26px 14px}.main{padding:28px 25px}.content-grid{grid-template-columns:minmax(0,1.3fr) minmax(270px,.9fr)}.summary{gap:12px}.balance-card,.stat-card{padding:19px 18px}.balance-card .amount{font-size:29px}}
+    @media(max-width:780px){.shell{display:block}.sidebar{display:none}.main{padding:23px 18px 95px}.topbar{margin-bottom:22px}.greeting h1{font-size:20px}.today-pill{padding:9px 10px}.summary{grid-template-columns:1fr 1fr;gap:10px}.balance-card{grid-column:1/-1;min-height:130px}.stat-card{min-height:123px;padding:16px}.stat-amount{font-size:20px;margin:12px 0 5px}.balance-card .amount{font-size:31px;margin:11px 0 7px}.content-grid{grid-template-columns:1fr;gap:14px}.right-column{grid-row:1}.transactions-panel{min-height:390px;padding:19px 16px 8px}.form-panel{padding:18px}.overview-panel{padding:18px}.manage-panel{padding:18px}.stats-panel{padding:18px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#ffffffed;backdrop-filter:blur(12px);border-top:1px solid var(--line);height:65px;justify-content:space-around;align-items:center;z-index:10}.mobile-nav .nav-link{margin:0;height:48px;display:flex;flex-direction:column;justify-content:center;gap:3px;font-size:9px;padding:0 9px}.mobile-nav .nav-ico{font-size:17px}.tip-card{display:none}}
+    @media(max-width:780px){.content-grid>.transactions-panel{grid-column:1;grid-row:2}.form-panel{grid-column:1;grid-row:1}.overview-panel{grid-column:1;grid-row:3}.stats-panel{grid-column:1;grid-row:4}#budget{grid-column:1;grid-row:5}#savings{grid-column:1;grid-row:6}}
+    @media(max-width:420px){.main{padding-left:13px;padding-right:13px}.greeting p{font-size:10px}.today-pill{font-size:10px}.today-pill span{display:none}.transactions-panel{padding-left:12px;padding-right:12px}.list-head,.transaction{grid-template-columns:minmax(0,1.4fr) .65fr minmax(88px,.75fr);gap:6px}.tx-icon{width:33px;height:33px;flex-basis:33px}.transaction-main{gap:8px}.tx-amount{font-size:11px}.filter-tab{padding:7px 8px}}
+    .category-analysis{margin-top:19px;padding-top:16px;border-top:1px solid var(--line)}.category-analysis-title{font-size:11px;font-weight:800;color:#555a70;margin-bottom:12px}.category-analysis-content{display:grid;grid-template-columns:138px minmax(0,1fr);gap:17px;align-items:center}.category-donut{width:138px;height:138px;border-radius:50%;display:grid;place-items:center;background:#f0f1f6;transition:background .25s}.donut-hole{width:91px;height:91px;border-radius:50%;background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 2px 8px #20243a0a}.donut-hole strong{max-width:82px;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:800;color:#41465d}.donut-hole span{font-size:8px;color:#a1a5b4;margin-top:4px}.category-legend{display:grid;gap:9px;min-width:0}.category-legend-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;font-size:9px;color:#777d91}.category-legend-name{display:flex;align-items:center;gap:6px;min-width:0}.category-legend-name span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.category-dot{width:8px;height:8px;flex:0 0 8px;border-radius:3px}.category-legend-value{text-align:right;white-space:nowrap}.category-legend-value strong{display:block;color:#555a70;font-size:9px}.category-legend-value small{display:block;color:#a1a5b4;font-size:8px;margin-top:2px}.category-analysis-empty{grid-column:1/-1;align-self:center;color:#a1a5b4;font-size:10px;line-height:1.6}.spending-tip{display:flex;align-items:flex-start;gap:9px;margin-top:17px;padding:12px;border-radius:11px;background:#fff8e8;color:#7c6742;font-size:10px;line-height:1.6}.spending-tip-icon{flex:0 0 auto;font-size:15px;line-height:1.3}.spending-tip strong{display:block;color:#64553b;font-size:10px;margin-bottom:2px}.spending-tip p{margin:0;color:#928264}.spending-tip[hidden]{display:none}
+    @media(max-width:420px){.category-analysis-content{grid-template-columns:112px minmax(0,1fr);gap:12px}.category-donut{width:112px;height:112px}.donut-hole{width:75px;height:75px}.donut-hole strong{font-size:10px}.category-legend{gap:7px}}
+    .stats-metrics small{display:block;margin-top:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#969bad;font-size:8px}.stats-metrics small b{color:#72778a;font-size:8px;font-weight:700}.stats-metrics strong.net-positive{color:var(--green)}.stats-metrics strong.net-negative{color:var(--red)}.chart-series-legend{display:flex;align-items:center;gap:13px}.chart-series-legend span{display:flex;align-items:center;gap:5px}.chart-series-legend i.income{background:var(--green)}.chart-series-legend i.expense{background:var(--red)}.chart-bar-wrap{height:92px}.chart-pair{width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px}.chart-bar{width:min(18px,42%);min-height:3px;display:block;border-radius:5px 5px 2px 2px;transition:height .25s}.chart-bar.income{background:linear-gradient(180deg,#66d0b0,#32b890)}.chart-bar.expense{background:linear-gradient(180deg,#f69b9b,#e87575)}
+    .wishlist-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;margin-top:13px}
+    #wishlist{grid-column:2;grid-row:3}@media(max-width:780px){#wishlist{grid-column:1;grid-row:6}}
+    .monthly-report-panel{grid-column:1/-1;grid-row:4;padding:22px}.monthly-report-panel .panel-head{margin-bottom:16px}.report-month-control{display:flex;align-items:center;gap:8px;color:#858a9d;font-size:10px;font-weight:700}.report-month-control select{height:36px;min-width:132px;border:1px solid #e9eaf0;border-radius:9px;background:#fff;padding:0 10px;color:#555a70;font-size:10px}.report-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.report-metrics>div{min-width:0;padding:14px;background:#fafaff;border-radius:12px}.report-metrics span{display:block;margin-bottom:7px;color:#969bad;font-size:9px}.report-metrics strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#41465d;font-size:16px;font-weight:800}.report-metrics strong.positive{color:var(--green)}.report-metrics strong.negative{color:var(--red)}.report-outcome{margin:12px 0 18px;padding:12px 14px;border-radius:11px;background:var(--purple-light);color:#6359ce;font-size:11px;font-weight:700;line-height:1.6}.report-outcome.positive{background:var(--green-light);color:#278c6d}.report-outcome.negative{background:var(--red-light);color:#bf5555}.report-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.8fr);gap:22px;align-items:start}.report-section-title{margin-bottom:12px;color:#555a70;font-size:11px;font-weight:800}.report-categories{display:grid;gap:12px}.report-category-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;color:#777d91;font-size:9px}.report-category-head span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.report-category-head strong{color:#555a70;white-space:nowrap}.report-track{height:7px;overflow:hidden;border-radius:99px;background:#f1f2f7}.report-fill{height:100%;border-radius:99px;background:var(--purple)}.report-empty{padding:10px 0;color:#a1a5b4;font-size:10px}.report-highlights{display:grid;gap:10px}.report-highlights>div{padding:12px;background:#fafaff;border-radius:11px}.report-highlights span{display:block;margin-bottom:6px;color:#969bad;font-size:9px}.report-highlights strong{display:block;color:#41465d;font-size:12px}.report-advice{display:flex;gap:9px;margin-top:17px;padding:12px;border-radius:11px;background:#fff8e8;color:#7c6742;font-size:10px;line-height:1.6}.report-advice>span{font-size:15px}.report-advice strong{display:block;margin-bottom:2px;color:#64553b;font-size:10px}.report-advice p{margin:0;color:#928264}
+    @media(max-width:780px){.monthly-report-panel{grid-column:1;grid-row:7;padding:18px}}
+    @media(max-width:560px){.monthly-report-panel .panel-head{flex-wrap:wrap;gap:12px}.report-month-control{width:100%;justify-content:space-between}.report-month-control select{flex:1}.report-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.report-grid{grid-template-columns:1fr;gap:16px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">✳</div><div class="brand-name">차곡차곡<small>MY POCKET MONEY</small></div></div>
+      <div class="nav-label">MENU</div>
+      <a class="nav-link active" href="#dashboard"><span class="nav-ico">▦</span>대시보드</a>
+      <a class="nav-link" href="#transactions"><span class="nav-ico">↕</span>거래 내역</a>
+      <a class="nav-link" href="#budget"><span class="nav-ico">◷</span>예산 관리</a>
+      <a class="nav-link" href="#stats"><span class="nav-ico">▥</span>소비 통계</a>
+      <a class="nav-link" href="#wishlist"><span class="nav-ico">♡</span>위시리스트</a>
+      <a class="nav-link" href="#monthlyReport"><span class="nav-ico">▤</span>월말 리포트</a>
+      <div class="sidebar-spacer"></div>
+      <div class="tip-card"><div class="tip-emoji">🐣</div><strong>티끌 모아 태산!</strong><p>작은 기록이 모이면<br>똑똑한 소비 습관이 돼요.</p></div>
+      <div class="profile"><div class="avatar">😊</div><div><strong>나의 용돈 노트</strong><small>차근차근 모으는 중</small></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="greeting"><h1>안녕, 오늘도 기록해 볼까? 👋</h1><p>용돈의 흐름을 한눈에 확인해 보세요.</p></div>
+        <div class="top-actions"><div class="today-pill"><span>📅</span><b id="todayLabel"></b></div><button class="icon-button" type="button" id="notificationButton" aria-label="예산 알림 보기">♧</button></div>
+      </header>
+      <div class="notice-toast" id="noticeToast" role="status" aria-live="polite"></div>
+      <section class="summary" id="dashboard" aria-label="용돈 요약">
+        <article class="balance-card"><div class="card-label"><span>💰</span> 지금 내 잔액</div><div class="amount" id="balance">₩0</div><div class="balance-foot">기록한 수입에서 지출을 뺐어요</div><div class="balance-spark">✨</div></article>
+        <article class="stat-card"><div class="stat-head"><span>이번 달 수입</span><span class="stat-icon in">↙</span></div><div class="stat-amount" id="incomeTotal">₩0</div><div class="stat-note">이번 달 들어온 용돈</div></article>
+        <article class="stat-card"><div class="stat-head"><span>이번 달 지출</span><span class="stat-icon out">↗</span></div><div class="stat-amount" id="expenseTotal">₩0</div><div class="stat-note">이번 달 쓴 용돈</div></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel transactions-panel" id="transactions">
+          <div class="panel-head"><div><div class="panel-title">거래 내역 조회</div><div class="panel-subtitle" id="recordCount">전체 기록을 검색하고 확인해요</div></div><div class="filter-tabs" role="group" aria-label="내역 종류"><button class="filter-tab active" data-filter="all">전체</button><button class="filter-tab" data-filter="income">수입</button><button class="filter-tab" data-filter="expense">지출</button></div></div>
+          <div class="record-tools"><label class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="내역 또는 분류 검색" aria-label="거래 내역 검색"></label><select id="monthFilter" aria-label="조회할 월"><option value="all">모든 기간</option></select></div>
+          <div class="list-head"><span>내역</span><span>분류</span><span>금액</span></div>
+          <div class="transaction-list" id="transactionList"></div>
+        </article>
+        <div class="right-column">
+          <article class="panel form-panel">
+            <div class="panel-head"><div><div class="panel-title">새 기록 추가 ✏️</div><div class="panel-subtitle">오늘의 용돈을 기록해 봐요</div></div></div>
+            <form id="entryForm">
+              <div class="type-switch"><button type="button" class="type-btn active income" data-type="income">＋ 수입</button><button type="button" class="type-btn" data-type="expense">－ 지출</button></div>
+              <input type="hidden" id="entryType" value="income">
+              <div class="field"><label for="amountInput">금액</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" type="number" min="1" step="1" id="amountInput" placeholder="얼마인가요?" required></div></div>
+              <div class="field"><label for="descriptionInput">내용</label><input type="text" id="descriptionInput" maxlength="40" placeholder="예: 엄마가 주신 용돈" required></div>
+              <div class="form-row">
+                <div class="field"><label for="categoryInput">분류</label><select id="categoryInput"></select></div>
+                <div class="field"><label for="dateInput">날짜</label><input type="date" id="dateInput" required></div>
+              </div>
+              <button class="submit-btn" type="submit">기록 저장하기 <span>→</span></button>
+            </form>
+          </article>
+          <article class="panel overview-panel">
+            <div class="overview-top"><div><div class="panel-title">이번 달 지출</div><div class="panel-subtitle">어디에 가장 많이 썼을까?</div></div><span class="month-tag" id="monthTag"></span></div>
+            <div class="overview-total" id="overviewTotal">₩0</div><div class="overview-caption">이번 달 지출 합계</div>
+            <div id="categoryBreakdown"></div>
+          </article>
+          <article class="panel stats-panel" id="stats">
+            <div class="panel-head"><div><div class="panel-title">소비 통계</div><div class="panel-subtitle">최근 6개월 수입과 지출을 비교해요</div></div><span class="panel-badge">월별</span></div>
+            <div class="stats-metrics"><div><span>이번 달 수입</span><strong id="statIncome">₩0</strong><small>기록된 수입 합계</small></div><div><span>이번 달 지출</span><strong id="statExpense">₩0</strong><small>하루 평균 <b id="statDaily">₩0</b></small></div><div><span>수입 − 지출</span><strong id="statNet">₩0</strong><small id="statTopCategory">최다 지출 · 기록 없음</small></div></div>
+            <div class="chart-legend"><div class="chart-series-legend"><span><i class="income"></i>수입</span><span><i class="expense"></i>지출</span></div><span id="statsMonthCaption"></span></div>
+            <div class="spend-chart" id="spendChart" role="img" aria-label="최근 6개월 수입과 지출 비교 그래프"></div>
+            <div class="category-analysis">
+              <div class="category-analysis-title">이번 달 소비 구성</div>
+              <div class="category-analysis-content">
+                <div class="category-donut" id="categoryDonut" role="img" aria-label="이번 달 소비 분류별 비중 그래프"><div class="donut-hole"><strong id="categoryDonutTotal">₩0</strong><span>이번 달 지출</span></div></div>
+                <div class="category-legend" id="categoryLegend"></div>
+              </div>
+            </div>
+            <div class="spending-tip" id="spendingTip" role="status" aria-live="polite"><span class="spending-tip-icon" aria-hidden="true">✦</span><div><strong>소비 팁</strong><p id="spendingTipText"></p></div></div>
+          </article>
+          <article class="panel manage-panel" id="budget">
+            <div class="panel-head"><div><div class="panel-title">예산 관리</div><div class="panel-subtitle">주간·월간·분류별 한도를 설정해요</div></div><span class="panel-badge">이번 달</span></div>
+            <div id="budgetAlert" class="budget-alert" role="status" aria-live="polite" hidden></div>
+            <form id="weeklyBudgetForm" class="total-budget-form">
+              <div class="field"><label for="weeklyBudgetAmount">주간 용돈 한도</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" id="weeklyBudgetAmount" type="number" min="1" step="1" placeholder="이번 주 한도" required></div></div>
+              <button class="secondary-btn" type="submit">주간 한도 저장 <span>＋</span></button>
+            </form>
+            <div id="weeklyBudgetStatus" class="total-budget-status"></div>
+            <form id="totalBudgetForm" class="total-budget-form">
+              <div class="field"><label for="totalBudgetAmount">월 전체 예산</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" id="totalBudgetAmount" type="number" min="1" step="1" placeholder="한 달 예산" required></div></div>
+              <button class="secondary-btn" type="submit">전체 예산 저장 <span>＋</span></button>
+            </form>
+            <div id="totalBudgetStatus" class="total-budget-status"></div>
+            <form id="budgetForm" class="compact-form">
+              <div class="form-row"><div class="field"><label for="budgetCategory">분류</label><select id="budgetCategory"></select></div><div class="field"><label for="budgetAmount">월 예산</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" id="budgetAmount" type="number" min="1" step="1" placeholder="한도" required></div></div></div>
+              <button class="secondary-btn" type="submit">예산 설정하기 <span>＋</span></button>
+            </form>
+            <div id="budgetList" class="manage-list"></div>
+          </article>
+          <article class="panel manage-panel" id="wishlist">
+            <div class="panel-head"><div><div class="panel-title">위시리스트</div><div class="panel-subtitle">위시 항목은 저축 목표로 연결되어 진행 상황을 함께 관리해요</div></div><span class="panel-badge">저축 연결</span></div>
+            <form id="wishlistForm" class="compact-form">
+              <div class="field"><label for="wishlistName">사고 싶은 물건</label><input id="wishlistName" type="text" maxlength="30" placeholder="예: 새 운동화" required></div>
+              <div class="form-row"><div class="field"><label for="wishlistTarget">물건 가격</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" id="wishlistTarget" type="number" min="1" step="1" placeholder="가격" required></div></div><div class="field"><label for="wishlistSaved">현재 모은 금액</label><div class="input-wrap"><span class="currency">₩</span><input class="amount-input" id="wishlistSaved" type="number" min="0" step="1" placeholder="0" value="0"></div></div></div>
+              <button class="secondary-btn" type="submit">위시 추가하고 저축 목표 만들기 <span>＋</span></button>
+            </form>
+            <div id="wishlistList" class="wishlist-list"></div>
+          </article>
+          <article class="panel monthly-report-panel" id="monthlyReport">
+            <div class="panel-head"><div><div class="panel-title">월말 소비 리포트</div><div class="panel-subtitle">기록된 거래를 모아 한 달의 소비 결과를 보여드려요</div></div><label class="report-month-control" for="reportMonth"><span>리포트 월</span><select id="reportMonth" aria-label="리포트 월 선택"></select></label></div>
+            <div class="report-metrics">
+              <div><span>수입 합계</span><strong id="reportIncome">₩0</strong></div>
+              <div><span>지출 합계</span><strong id="reportExpense">₩0</strong></div>
+              <div><span>수입 − 지출</span><strong id="reportNet">₩0</strong></div>
+              <div><span>저축률</span><strong id="reportRate">—</strong></div>
+            </div>
+            <div class="report-outcome" id="reportOutcome" role="status" aria-live="polite"></div>
+            <div class="report-grid">
+              <section><div class="report-section-title">분류별 지출</div><div id="reportCategories" class="report-categories"></div></section>
+              <div class="report-highlights">
+                <div><span>하루 평균 지출</span><strong id="reportDaily">₩0</strong></div>
+                <div><span>가장 많이 쓴 분류</span><strong id="reportTopCategory">기록 없음</strong></div>
+              </div>
+            </div>
+            <div class="report-advice"><span aria-hidden="true">✦</span><div><strong>한 줄 소비 팁</strong><p id="reportAdvice"></p></div></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="모바일 메뉴"><a class="nav-link active" href="#dashboard"><span class="nav-ico">▦</span>홈</a><a class="nav-link" href="#transactions"><span class="nav-ico">↕</span>내역</a><a class="nav-link" href="#stats"><span class="nav-ico">▥</span>통계</a><a class="nav-link" href="#budget"><span class="nav-ico">◷</span>예산</a><a class="nav-link" href="#wishlist"><span class="nav-ico">♡</span>위시</a><a class="nav-link" href="#monthlyReport"><span class="nav-ico">▤</span>리포트</a><a class="nav-link" href="#entryForm" id="mobileAdd"><span class="nav-ico">＋</span>기록</a></nav>
+  <script>
+    (() => {
+      const STORAGE_KEY = 'chakchak-pocket-money-v1';
+      const categories = {income:['용돈','선물','아르바이트','기타'],expense:['간식','식비','문구','교통','취미','기타']};
+      const icons = {용돈:'🧧',선물:'🎁',아르바이트:'💼',간식:'🍪',식비:'🍜',문구:'✏️',교통:'🚌',취미:'🎮',기타:'🌟'};
+      const $ = (selector) => document.querySelector(selector);
+      const money = (amount) => '₩' + new Intl.NumberFormat('ko-KR').format(amount);
+      const escapeHtml = (value) => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+      const dateKey = (date) => { const d = new Date(date); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+      const today = new Date();
+      $('#todayLabel').textContent = new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long',day:'numeric',weekday:'short'}).format(today);
+      $('#dateInput').value = dateKey(today);
+      $('#monthTag').textContent = new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long'}).format(today);
+      const getWeekRange = (date) => {
+        const startDate = new Date(date.getFullYear(),date.getMonth(),date.getDate()-((date.getDay()+6)%7));
+        const endDate = new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()+6);
+        const formatDate = value => new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric'}).format(value);
+        return {start:dateKey(startDate),end:dateKey(endDate),label:formatDate(startDate)+'–'+formatDate(endDate)};
+      };
+      let records = [];
+      try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); records = Array.isArray(saved) ? saved.filter(x => x && Number.isFinite(Number(x.amount)) && x.amount > 0 && ['income','expense'].includes(x.type)) : []; } catch { records = []; }
+      const BUDGET_KEY = 'chakchak-pocket-budget-v1';
+      const TOTAL_BUDGET_KEY = 'chakchak-pocket-total-budget-v1';
+      const WEEKLY_BUDGET_KEY = 'chakchak-pocket-weekly-budget-v1';
+      const GOALS_KEY = 'chakchak-pocket-goals-v1';
+      const loadStored = (key, fallback, validate) => { try { const value = JSON.parse(localStorage.getItem(key) || 'null'); return validate(value) ? value : fallback; } catch { return fallback; } };
+      let totalBudget = loadStored(TOTAL_BUDGET_KEY, 0, value => Number.isSafeInteger(Number(value)) && Number(value) > 0);
+      $('#totalBudgetAmount').value = totalBudget || '';
+      let weeklyBudget = loadStored(WEEKLY_BUDGET_KEY, 0, value => Number.isSafeInteger(Number(value)) && Number(value) > 0);
+      $('#weeklyBudgetAmount').value = weeklyBudget || '';
+      let budgets = loadStored(BUDGET_KEY, {}, value => value && typeof value === 'object' && !Array.isArray(value));
+      budgets = Object.fromEntries(Object.entries(budgets).filter(([name, amount]) => categories.expense.includes(name) && Number.isSafeInteger(Number(amount)) && Number(amount) > 0).map(([name, amount]) => [name, Number(amount)]));
+      let goals = loadStored(GOALS_KEY, [], Array.isArray).filter(goal => goal && Number.isSafeInteger(Number(goal.target)) && Number(goal.target) > 0 && Number.isSafeInteger(Number(goal.saved)) && Number(goal.saved) >= 0).map(goal => ({id:String(goal.id || Date.now()),name:String(goal.name || '위시 항목').slice(0,30),target:Number(goal.target),saved:Number(goal.saved)}));
+      let activeFilter = 'all';
+      const persist = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); } catch { alert('저장 공간에 문제가 있어 기록을 저장하지 못했어요.'); } };
+      const persistBudgets = () => { try { localStorage.setItem(BUDGET_KEY, JSON.stringify(budgets)); } catch { alert('예산을 저장하지 못했어요.'); } };
+      const persistTotalBudget = () => { try { localStorage.setItem(TOTAL_BUDGET_KEY, JSON.stringify(totalBudget)); } catch { alert('전체 예산을 저장하지 못했어요.'); } };
+      const persistWeeklyBudget = () => { try { localStorage.setItem(WEEKLY_BUDGET_KEY, JSON.stringify(weeklyBudget)); } catch { alert('주간 용돈 한도를 저장하지 못했어요.'); } };
+      const persistGoals = () => { try { localStorage.setItem(GOALS_KEY, JSON.stringify(goals)); } catch { alert('위시리스트를 저장하지 못했어요.'); } };
+      let toastTimer;
+      function notify(message) {
+        const toast = $('#noticeToast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+      }
+      function getBudgetWarnings(source = records) {
+        const month = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+        const monthly = source.filter(r => String(r.date).startsWith(month) && r.type === 'expense');
+        const spent = monthly.reduce((sum,r) => sum + Number(r.amount),0);
+        const warnings = [];
+        const currentWeek = getWeekRange(today);
+        const weeklySpent = source.filter(r => String(r.date) >= currentWeek.start && String(r.date) <= currentWeek.end && r.type === 'expense').reduce((sum,r) => sum + Number(r.amount),0);
+        if (weeklyBudget > 0 && weeklySpent > weeklyBudget) warnings.push(`이번 주 용돈 한도를 ${money(weeklySpent-weeklyBudget)} 초과했어요.`);
+        if (totalBudget > 0 && spent > totalBudget) warnings.push(`월 전체 예산을 ${money(spent-totalBudget)} 초과했어요.`);
+        const byCategory = {};
+        monthly.forEach(r => { byCategory[r.category] = (byCategory[r.category] || 0) + Number(r.amount); });
+        Object.entries(budgets).forEach(([category,limit]) => {
+          if ((byCategory[category] || 0) > limit) warnings.push(`${category} 예산을 ${money(byCategory[category]-limit)} 초과했어요.`);
+        });
+        return warnings;
+      }
+      function fillCategories() {
+        const type = $('#entryType').value;
+        $('#categoryInput').innerHTML = categories[type].map(c => `<option value="${c}">${c}</option>`).join('');
+        $('#budgetCategory').innerHTML = categories.expense.map(c => `<option value="${c}">${icons[c]} ${c}</option>`).join('');
+      }
+      function render() {
+        const month = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+        const monthly = records.filter(r => String(r.date).startsWith(month));
+        const income = monthly.filter(r => r.type === 'income').reduce((sum,r) => sum + Number(r.amount),0);
+        const expense = monthly.filter(r => r.type === 'expense').reduce((sum,r) => sum + Number(r.amount),0);
+        const balance = records.reduce((sum,r) => sum + (r.type === 'income' ? Number(r.amount) : -Number(r.amount)),0);
+        $('#balance').textContent = money(balance);
+        $('#balance').style.fontSize = balance < 0 ? '29px' : '';
+        $('#incomeTotal').textContent = money(income);
+        $('#expenseTotal').textContent = money(expense);
+        $('#overviewTotal').textContent = money(expense);
+        const sorted = [...records].sort((a,b) => String(b.date).localeCompare(String(a.date)) || Number(b.createdAt)-Number(a.createdAt));
+        const selectedMonth = $('#monthFilter').value;
+        const query = $('#searchInput').value.trim().toLocaleLowerCase('ko-KR');
+        const monthOptions = [...new Set([month, ...records.map(r => String(r.date || '').slice(0,7)).filter(m => /^\d{4}-\d{2}$/.test(m))])].sort((a,b) => b.localeCompare(a));
+        if ($('#monthFilter').dataset.options !== monthOptions.join(',')) {
+          $('#monthFilter').innerHTML = '<option value="all">모든 기간</option>' + monthOptions.map(m => '<option value="' + m + '">' + m.slice(0,4) + '년 ' + Number(m.slice(5)) + '월</option>').join('');
+          $('#monthFilter').dataset.options = monthOptions.join(',');
+          if (monthOptions.includes(selectedMonth)) $('#monthFilter').value = selectedMonth;
+        }
+        const selectedReportMonth = $('#reportMonth').value || month;
+        if ($('#reportMonth').dataset.options !== monthOptions.join(',')) {
+          $('#reportMonth').innerHTML = monthOptions.map(m => '<option value="' + m + '">' + m.slice(0,4) + '년 ' + Number(m.slice(5)) + '월</option>').join('');
+          $('#reportMonth').dataset.options = monthOptions.join(',');
+          $('#reportMonth').value = monthOptions.includes(selectedReportMonth) ? selectedReportMonth : month;
+        }
+        const filtered = sorted.filter(r => (activeFilter === 'all' || r.type === activeFilter) && (selectedMonth === 'all' || String(r.date).startsWith(selectedMonth)) && (!query || (String(r.description || '') + ' ' + String(r.category || '')).toLocaleLowerCase('ko-KR').includes(query)));
+        $('#recordCount').textContent = filtered.length + '건의 거래 내역';
+        const list = $('#transactionList');
+        if (!filtered.length) {
+          list.innerHTML = `<div class="empty-state"><div class="empty-art">${records.length ? '🫧' : '📒'}</div><strong>${records.length ? '해당하는 기록이 없어요' : '아직 기록이 없어요'}</strong><span>${records.length ? '다른 탭을 눌러 확인해 보세요.' : '오른쪽에서 첫 용돈 기록을 추가해 보세요!'}</span></div>`;
+        } else {
+          list.innerHTML = filtered.map(r => {
+            const safeTitle = escapeHtml(r.description || '');
+            const safeCategory = escapeHtml(r.category || '기타');
+            const safeId = escapeHtml(r.id);
+            const date = new Date(`${r.date}T00:00:00`);
+            const day = new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric'}).format(date);
+            return `<div class="transaction"><div class="transaction-main"><div class="tx-icon">${icons[r.category] || '🌟'}</div><div style="min-width:0"><div class="tx-title">${safeTitle}</div><div class="tx-detail">${day}</div></div></div><div class="tx-category">${safeCategory}</div><div class="tx-amount-wrap"><div class="tx-amount ${r.type}">${r.type === 'income' ? '+' : '−'}${money(Number(r.amount))}<small>${r.type === 'income' ? '수입' : '지출'}</small></div><button type="button" class="delete-btn" data-delete="${safeId}" aria-label="${safeTitle} 기록 삭제">×</button></div></div>`;
+          }).join('');
+        }
+        const byCategory = {};
+        monthly.filter(r => r.type === 'expense').forEach(r => { byCategory[r.category] = (byCategory[r.category] || 0) + Number(r.amount); });
+        const entries = Object.entries(byCategory).sort((a,b) => b[1]-a[1]);
+        $('#categoryBreakdown').innerHTML = entries.length ? entries.map(([name,value], index) => `<div class="category-row"><div class="category-label"><span>${icons[name] || '🌟'} &nbsp;${escapeHtml(name)}</span><strong>${money(value)}</strong></div><div class="bar-track"><div class="bar-fill" style="width:${Math.max(4,Math.round(value/expense*100))}%;background:${['#7065e8','#f1a768','#59bea2','#ef8e94','#6ca8df','#bf8add'][index%6]}"></div></div></div>`).join('') : '<div class="category-empty">지출을 기록하면 분류별로 보여드릴게요.</div>';
+        const reportMonth = $('#reportMonth').value || month;
+        const reportRecords = records.filter(r => String(r.date).startsWith(reportMonth));
+        const reportIncome = reportRecords.filter(r => r.type === 'income').reduce((sum,r) => sum + Number(r.amount),0);
+        const reportExpense = reportRecords.filter(r => r.type === 'expense').reduce((sum,r) => sum + Number(r.amount),0);
+        const reportNet = reportIncome - reportExpense;
+        const [reportYear, reportMonthNumber] = reportMonth.split('-').map(Number);
+        const reportMonthLabel = new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long'}).format(new Date(reportYear,reportMonthNumber-1,1));
+        const reportDays = reportMonth === month ? today.getDate() : new Date(reportYear,reportMonthNumber,0).getDate();
+        const reportRate = reportIncome ? Math.round(reportNet / reportIncome * 100) : null;
+        $('#reportIncome').textContent = money(reportIncome);
+        $('#reportExpense').textContent = money(reportExpense);
+        $('#reportNet').textContent = (reportNet >= 0 ? '+' : '−') + money(Math.abs(reportNet));
+        $('#reportNet').classList.toggle('positive',reportNet > 0);
+        $('#reportNet').classList.toggle('negative',reportNet < 0);
+        $('#reportRate').textContent = reportRate === null ? '—' : reportRate + '%';
+        $('#reportRate').classList.toggle('positive',reportRate !== null && reportRate >= 0);
+        $('#reportRate').classList.toggle('negative',reportRate !== null && reportRate < 0);
+        $('#reportDaily').textContent = money(Math.round(reportExpense / Math.max(1,reportDays)));
+        const reportByCategory = {};
+        reportRecords.filter(r => r.type === 'expense').forEach(r => { reportByCategory[r.category] = (reportByCategory[r.category] || 0) + Number(r.amount); });
+        const reportCategories = Object.entries(reportByCategory).sort((a,b) => b[1]-a[1]);
+        const reportColors = ['#7065e8','#f1a768','#59bea2','#ef8e94','#6ca8df','#bf8add'];
+        $('#reportCategories').innerHTML = reportCategories.length ? reportCategories.map(([name,value],index) => {
+          const share = Math.round(value / reportExpense * 100);
+          return '<div class="report-category"><div class="report-category-head"><span>' + (icons[name] || '🌟') + ' ' + escapeHtml(name) + '</span><strong>' + money(value) + ' · ' + share + '%</strong></div><div class="report-track"><div class="report-fill" style="width:' + Math.max(4,share) + '%;background:' + reportColors[index % reportColors.length] + '"></div></div></div>';
+        }).join('') : '<div class="report-empty">선택한 달에 기록된 지출이 없어요.</div>';
+        const reportTop = reportCategories[0];
+        const reportTopShare = reportTop && reportExpense ? Math.round(reportTop[1] / reportExpense * 100) : 0;
+        $('#reportTopCategory').textContent = reportTop ? reportTop[0] + ' · ' + money(reportTop[1]) + ' (' + reportTopShare + '%)' : '기록 없음';
+        const outcome = !reportRecords.length ? reportMonthLabel + ' 거래 기록이 없어요.' : reportNet > 0 ? reportMonthLabel + '에는 수입에서 지출을 빼고 ' + money(reportNet) + '이 남았어요.' : reportNet < 0 ? reportMonthLabel + ' 지출이 수입보다 ' + money(Math.abs(reportNet)) + ' 더 많았어요.' : reportMonthLabel + ' 수입과 지출이 같아요.';
+        $('#reportOutcome').textContent = outcome;
+        $('#reportOutcome').classList.toggle('positive',reportNet > 0);
+        $('#reportOutcome').classList.toggle('negative',reportNet < 0);
+        const advice = !reportExpense ? '지출 기록이 없어 소비 구성을 분석할 수 없어요. 거래를 기록하면 월별 결과를 확인할 수 있어요.' : !reportIncome ? '수입도 함께 기록하면 수입 대비 지출과 저축률을 정확히 확인할 수 있어요.' : reportNet < 0 ? '지출이 수입을 넘었어요. 가장 많이 쓴 ' + reportTop[0] + '부터 다음 달 한도를 정해보세요.' : reportTopShare >= 40 ? reportTop[0] + ' 지출이 전체의 ' + reportTopShare + '%예요. 이 항목에 미리 한도를 정해보세요.' : '수입 중 ' + money(reportNet) + '이 남았어요. 다음 달에도 분류별 지출을 확인해 보세요.';
+        $('#reportAdvice').textContent = advice;
+        const net = income - expense;
+        $('#statIncome').textContent = money(income);
+        $('#statExpense').textContent = money(expense);
+        $('#statDaily').textContent = money(Math.round(expense / today.getDate()));
+        $('#statNet').textContent = (net >= 0 ? '+' : '−') + money(Math.abs(net));
+        $('#statNet').classList.toggle('net-positive',net >= 0);
+        $('#statNet').classList.toggle('net-negative',net < 0);
+        $('#statTopCategory').textContent = entries.length ? '최다 지출 · ' + entries[0][0] : '최다 지출 · 기록 없음';
+        $('#statsMonthCaption').textContent = new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long'}).format(today);
+        const history = Array.from({length:6},(_,index) => {
+          const date = new Date(today.getFullYear(),today.getMonth()-5+index,1);
+          const key = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0');
+          const monthRecords = records.filter(r => String(r.date).startsWith(key));
+          const monthIncome = monthRecords.filter(r => r.type === 'income').reduce((sum,r) => sum + Number(r.amount),0);
+          const monthExpense = monthRecords.filter(r => r.type === 'expense').reduce((sum,r) => sum + Number(r.amount),0);
+          return {month:date.getMonth()+1,income:monthIncome,expense:monthExpense};
+        });
+        const chartMax = Math.max(1,...history.flatMap(item => [item.income,item.expense]));
+        $('#spendChart').setAttribute('aria-label','최근 6개월 수입과 지출 비교. ' + history.map(item => item.month + '월 수입 ' + money(item.income) + ', 지출 ' + money(item.expense)).join('; '));
+        $('#spendChart').innerHTML = history.map(item => '<div class="chart-column" title="' + item.month + '월 수입 ' + money(item.income) + ' · 지출 ' + money(item.expense) + '"><div class="chart-bar-wrap"><div class="chart-pair"><i class="chart-bar income" style="height:' + (item.income ? Math.max(5,Math.round(item.income/chartMax*92)) : 0) + 'px" title="수입 ' + money(item.income) + '"></i><i class="chart-bar expense" style="height:' + (item.expense ? Math.max(5,Math.round(item.expense/chartMax*92)) : 0) + 'px" title="지출 ' + money(item.expense) + '"></i></div></div><span class="chart-month">' + item.month + '월</span></div>').join('');
+        const monthlyByCategory = {};
+        monthly.filter(r => r.type === 'expense').forEach(r => { monthlyByCategory[r.category] = (monthlyByCategory[r.category] || 0) + Number(r.amount); });
+        const currentWeek = getWeekRange(today);
+        const weeklySpent = records.filter(r => String(r.date) >= currentWeek.start && String(r.date) <= currentWeek.end && r.type === 'expense').reduce((sum,r) => sum + Number(r.amount),0);
+        const weeklyRatio = weeklyBudget ? Math.round(weeklySpent / weeklyBudget * 100) : 0;
+        $('#weeklyBudgetStatus').innerHTML = weeklyBudget ? '<div class="total-budget-copy"><span>이번 주 (' + currentWeek.label + ') 지출 ' + money(weeklySpent) + '</span><strong>한도 ' + money(weeklyBudget) + '</strong></div><div class="manage-track"><div class="manage-fill ' + (weeklySpent > weeklyBudget ? 'over' : '') + '" style="width:' + Math.min(100,Math.max(weeklySpent ? 3 : 0,weeklyRatio)) + '%"></div></div><div class="total-budget-copy"><span>' + (weeklySpent > weeklyBudget ? '초과액 ' + money(weeklySpent-weeklyBudget) : '남은 한도 ' + money(weeklyBudget-weeklySpent)) + '</span><strong>' + weeklyRatio + '% 사용</strong></div>' : '<div class="manage-item-meta">주간 한도를 설정하면 월요일부터 일요일까지 지출을 관리할 수 있어요.</div>';
+        const categoryColors = ['#7065e8','#f1a768','#59bea2','#ef8e94','#6ca8df','#bf8add'];
+        const categoryTotal = entries.reduce((sum, item) => sum + item[1], 0);
+        let categoryOffset = 0;
+        const categorySlices = entries.map(([name, value], index) => {
+          const start = categoryOffset;
+          categoryOffset += categoryTotal ? value / categoryTotal * 100 : 0;
+          return {name, value, color:categoryColors[index % categoryColors.length], start, end:categoryOffset, percent:categoryTotal ? Math.round(value / categoryTotal * 100) : 0};
+        });
+        $('#categoryDonutTotal').textContent = money(categoryTotal);
+        $('#categoryDonut').style.background = categorySlices.length ? 'conic-gradient(' + categorySlices.map(item => item.color + ' ' + item.start + '% ' + item.end + '%').join(',') + ')' : '#f0f1f6';
+        $('#categoryDonut').setAttribute('aria-label', categorySlices.length ? '이번 달 소비 분류별 비중: ' + categorySlices.map(item => item.name + ' ' + item.percent + '%').join(', ') : '이번 달 소비 내역이 없습니다');
+        $('#categoryLegend').innerHTML = categorySlices.length ? categorySlices.map(item => '<div class="category-legend-row"><div class="category-legend-name"><i class="category-dot" style="background:' + item.color + '"></i><span>' + escapeHtml(item.name) + '</span></div><div class="category-legend-value"><strong>' + money(item.value) + '</strong><small>' + item.percent + '%</small></div></div>').join('') : '<div class="category-analysis-empty">이번 달 지출을 기록하면 분류별 비중을 보여드릴게요.</div>';
+        const exceededCategory = Object.entries(budgets).find(([name, limit]) => (monthlyByCategory[name] || 0) > limit);
+        let spendingTip;
+        if (totalBudget > 0 && expense > totalBudget) spendingTip = '이번 달 전체 예산을 ' + money(expense - totalBudget) + ' 넘었어요. 남은 기간에는 꼭 필요한 지출부터 살펴보세요.';
+        else if (exceededCategory) spendingTip = exceededCategory[0] + ' 예산을 넘었어요. 다음 지출 전에 남은 항목을 확인해 보세요.';
+        else if (income > 0 && expense > income) spendingTip = '이번 달 지출이 수입보다 많아요. 간식이나 취미처럼 조절하기 쉬운 지출부터 살펴보세요.';
+        else if (totalBudget > 0 && expense / totalBudget >= 0.8) spendingTip = '전체 예산의 ' + Math.round(expense / totalBudget * 100) + '%를 사용했어요. 남은 예산을 확인하며 지출해 보세요.';
+        else if (categorySlices[0] && categorySlices[0].percent >= 40) spendingTip = categorySlices[0].name + ' 지출이 전체의 ' + categorySlices[0].percent + '%예요. 이 분류에 작은 한도를 정해보세요.';
+        else if (!expense) spendingTip = '지출을 기록하면 소비 구성을 분석하고 맞춤 팁을 보여드릴게요.';
+        else spendingTip = '분류별 소비 비중을 확인해 보세요. 지출이 큰 항목은 미리 한도를 정하면 관리하기 쉬워요.';
+        $('#spendingTipText').textContent = spendingTip;
+        $('#totalBudgetStatus').innerHTML = totalBudget ? '<div class="total-budget-copy"><span>전체 지출 ' + money(expense) + '</span><strong>예산 ' + money(totalBudget) + '</strong></div><div class="manage-track"><div class="manage-fill ' + (expense > totalBudget ? 'over' : '') + '" style="width:' + Math.min(100,Math.max(expense ? 3 : 0,Math.round(expense/totalBudget*100))) + '%"></div></div>' : '<div class="manage-item-meta">월 전체 예산을 설정하면 전체 지출도 함께 관리할 수 있어요.</div>';
+        const warnings = getBudgetWarnings();
+        $('#budgetAlert').hidden = warnings.length === 0;
+        $('#budgetAlert').textContent = warnings.length ? '⚠️ ' + warnings.join(' · ') : '';
+        $('#notificationButton').classList.toggle('has-alert',warnings.length > 0);
+        const budgetEntries = Object.entries(budgets).sort((a,b) => a[0].localeCompare(b[0],'ko-KR'));
+        $('#budgetList').innerHTML = budgetEntries.length ? budgetEntries.map(([name,limit]) => {
+          const spent = monthlyByCategory[name] || 0;
+          const ratio = Math.round(spent / limit * 100);
+          const safeName = escapeHtml(name);
+          return '<div class="budget-item"><div class="manage-item-head"><div><div class="manage-item-title">' + (icons[name] || '🌟') + ' ' + safeName + '</div><div class="manage-item-meta">이번 달 ' + money(spent) + ' 사용</div></div><div class="manage-value">' + money(limit) + '</div></div><div class="manage-track"><div class="manage-fill ' + (spent > limit ? 'over' : '') + '" style="width:' + Math.min(100,Math.max(spent ? 3 : 0,ratio)) + '%"></div></div><div class="budget-foot"><span>' + (spent > limit ? '예산을 넘었어요' : '예산의 ' + ratio + '% 사용') + '</span><button type="button" class="delete-btn" data-budget-delete="' + safeName + '" aria-label="' + safeName + ' 예산 삭제">삭제</button></div></div>';
+        }).join('') : '<div class="manage-empty">분류와 월 예산을 설정해 보세요.</div>';
+        const renderGoalItem = goal => {
+          const progress = Math.min(100,Math.round(goal.saved / goal.target * 100));
+          const complete = goal.saved >= goal.target;
+          const safeId = escapeHtml(goal.id);
+          const safeName = escapeHtml(goal.name);
+          const remaining = Math.max(0,goal.target-goal.saved);
+          const detail = '가격 ' + money(goal.target) + ' · 모은 금액 ' + money(goal.saved) + ' · 남은 금액 ' + money(remaining);
+          return '<div class="goal-item"><div class="manage-item-head"><div><div class="manage-item-title">🛍️ ' + safeName + '</div><div class="manage-item-meta">' + detail + '</div></div><div class="goal-actions">' + (complete ? '<span class="goal-complete">목표 달성!</span>' : '<button type="button" class="goal-add" data-goal-add="' + safeId + '">＋ 더 모으기</button>') + '<button type="button" class="goal-delete" data-goal-delete="' + safeId + '" aria-label="' + safeName + ' 위시 삭제">×</button></div></div><div class="manage-track"><div class="manage-fill" style="width:' + progress + '%;background:' + (complete ? 'var(--green)' : 'var(--purple)') + '"></div></div><div class="goal-foot"><span>' + (complete ? '살 수 있어요!' : '저축 진행률') + '</span><strong>' + progress + '%</strong></div></div>';
+        };
+        $('#wishlistList').innerHTML = goals.length ? goals.map(renderGoalItem).join('') : '<div class="manage-empty">사고 싶은 물건을 위시리스트에 추가해 보세요.</div>';
+      }
+      document.querySelectorAll('.type-btn').forEach(btn => btn.addEventListener('click', () => {
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active','income','expense'));
+        btn.classList.add('active',btn.dataset.type);
+        $('#entryType').value = btn.dataset.type;
+        fillCategories();
+      }));
+      document.querySelectorAll('.filter-tab').forEach(btn => btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active'); activeFilter = btn.dataset.filter; render();
+      }));
+      $('#searchInput').addEventListener('input', render);
+      $('#monthFilter').addEventListener('change', render);
+      $('#reportMonth').addEventListener('change', render);
+      $('#weeklyBudgetForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const amount = Number($('#weeklyBudgetAmount').value);
+        if (!Number.isSafeInteger(amount) || amount <= 0) { $('#weeklyBudgetAmount').setCustomValidity('1원 이상의 주간 용돈 한도를 입력해 주세요.'); $('#weeklyBudgetAmount').reportValidity(); $('#weeklyBudgetAmount').setCustomValidity(''); return; }
+        const priorWarningCount = getBudgetWarnings().length;
+        weeklyBudget = amount; persistWeeklyBudget(); render();
+        const warnings = getBudgetWarnings();
+        notify(warnings.length > priorWarningCount ? warnings[warnings.length-1] : '주간 용돈 한도를 저장했어요.');
+      });
+      $('#totalBudgetForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const amount = Number($('#totalBudgetAmount').value);
+        if (!Number.isSafeInteger(amount) || amount <= 0) { $('#totalBudgetAmount').setCustomValidity('1원 이상의 전체 예산을 입력해 주세요.'); $('#totalBudgetAmount').reportValidity(); $('#totalBudgetAmount').setCustomValidity(''); return; }
+        const priorWarningCount = getBudgetWarnings().length;
+        totalBudget = amount; persistTotalBudget(); render();
+        const warnings = getBudgetWarnings();
+        notify(warnings.length > priorWarningCount ? warnings[warnings.length-1] : '월 전체 예산을 저장했어요.');
+      });
+      $('#notificationButton').addEventListener('click', () => {
+        const warnings = getBudgetWarnings();
+        $('#budget').scrollIntoView({behavior:'smooth',block:'start'});
+        notify(warnings.length ? warnings.join(' · ') : '현재 예산을 초과한 항목이 없어요.');
+      });
+      $('#budgetForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const amount = Number($('#budgetAmount').value);
+        if (!Number.isSafeInteger(amount) || amount <= 0) { $('#budgetAmount').setCustomValidity('1원 이상의 예산을 입력해 주세요.'); $('#budgetAmount').reportValidity(); $('#budgetAmount').setCustomValidity(''); return; }
+        const priorWarningCount = getBudgetWarnings().length;
+        budgets[$('#budgetCategory').value] = amount;
+        persistBudgets(); event.target.reset(); render();
+        const warnings = getBudgetWarnings();
+        if (warnings.length > priorWarningCount) notify(warnings[warnings.length-1]);
+      });
+      $('#budgetList').addEventListener('click', event => {
+        const button = event.target.closest('[data-budget-delete]');
+        if (!button) return;
+        delete budgets[button.dataset.budgetDelete]; persistBudgets(); render();
+      });
+      $('#wishlistForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const name = $('#wishlistName').value.trim();
+        const target = Number($('#wishlistTarget').value);
+        const saved = Number($('#wishlistSaved').value || 0);
+        if (!name) { $('#wishlistName').focus(); return; }
+        if (!Number.isSafeInteger(target) || target <= 0) { $('#wishlistTarget').setCustomValidity('1원 이상의 물건 가격을 입력해 주세요.'); $('#wishlistTarget').reportValidity(); $('#wishlistTarget').setCustomValidity(''); return; }
+        if (!Number.isSafeInteger(saved) || saved < 0) { $('#wishlistSaved').setCustomValidity('0원 이상의 금액을 입력해 주세요.'); $('#wishlistSaved').reportValidity(); $('#wishlistSaved').setCustomValidity(''); return; }
+        goals.unshift({id:`${Date.now()}-${Math.random().toString(36).slice(2,8)}`,name,target,saved});
+        persistGoals(); event.target.reset(); $('#wishlistSaved').value = '0'; render();
+      });
+      function handleGoalAction(event) {
+        const addButton = event.target.closest('[data-goal-add]');
+        const deleteButton = event.target.closest('[data-goal-delete]');
+        if (addButton) {
+          const goal = goals.find(item => item.id === addButton.dataset.goalAdd);
+          if (!goal) return;
+          const amount = Number(prompt('얼마를 더 모았나요?', '1000'));
+          if (!Number.isSafeInteger(amount) || amount <= 0) return;
+          goal.saved += amount; persistGoals(); render();
+        } else if (deleteButton) {
+          goals = goals.filter(item => item.id !== deleteButton.dataset.goalDelete); persistGoals(); render();
+        }
+      }
+      $('#wishlistList').addEventListener('click', handleGoalAction);
+      document.querySelectorAll('.sidebar .nav-link, .mobile-nav .nav-link').forEach(link => link.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar .nav-link, .mobile-nav .nav-link').forEach(item => item.classList.toggle('active', item.getAttribute('href') === link.getAttribute('href')));
+      }));
+      $('#entryForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const amount = Number($('#amountInput').value);
+        const description = $('#descriptionInput').value.trim();
+        if (!Number.isSafeInteger(amount) || amount <= 0) { $('#amountInput').setCustomValidity('1원 이상의 금액을 입력해 주세요.'); $('#amountInput').reportValidity(); $('#amountInput').setCustomValidity(''); return; }
+        if (!description) { $('#descriptionInput').focus(); return; }
+        const priorWarningCount = getBudgetWarnings().length;
+        const entryType = $('#entryType').value;
+        records.push({id: `${Date.now()}-${Math.random().toString(36).slice(2,8)}`,type:entryType,amount,description,category:$('#categoryInput').value,date:$('#dateInput').value,createdAt:Date.now()});
+        persist(); activeFilter = 'all'; $('#searchInput').value = ''; $('#monthFilter').value = 'all'; document.querySelectorAll('.filter-tab').forEach(b => b.classList.toggle('active',b.dataset.filter === 'all'));
+        event.target.reset(); $('#entryType').value = entryType; $('#dateInput').value = dateKey(today); fillCategories(); render(); $('#amountInput').focus();
+        const warnings = getBudgetWarnings();
+        if (entryType === 'expense' && warnings.length > priorWarningCount) notify('⚠️ ' + warnings[warnings.length-1]);
+      });
+      $('#transactionList').addEventListener('click', event => {
+        const button = event.target.closest('[data-delete]'); if (!button) return;
+        records = records.filter(r => String(r.id) !== button.dataset.delete); persist(); render();
+      });
+      $('#mobileAdd').addEventListener('click', () => { $('.form-panel').scrollIntoView({behavior:'smooth',block:'start'}); $('#amountInput').focus({preventScroll:true}); });
+      fillCategories(); render();
+    })();
+  </script>
+</body>
+</html>
